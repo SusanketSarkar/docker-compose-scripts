@@ -31,8 +31,9 @@ if __name__ == "__main__":
     
     for hlr_number in tqdm.tqdm(range(18, 35)):
         if os.path.exists(f"D:/INPUT-1-1/Nigahi/HLR-{hlr_number}/INPUT.shp"):
-            input_shapefile_folder = f"D:/INPUT-1-1/Nigahi/HLR-{hlr_number}/"
+            smartline_input_folder = f"D:/INPUT-1-1/Nigahi/HLR-{hlr_number}/"
             smartline_output_path = f"D:/OUTPUT_HRA/Nigahi/hrda-test-nigahi-{hlr_number}-smartline"
+            centerline_input_folder = os.path.join(smartline_output_path, "results")
             centerline_output_path = f"D:/OUTPUT_HRA/Nigahi/hrda-test-nigahi-{hlr_number}-centerline"
             edges_nm_output_path = f"D:/OUTPUT_HRA/Nigahi/hrda-test-nigahi-{hlr_number}-edges-no_median"
             edges_wm_output_path = f"D:/OUTPUT_HRA/Nigahi/hrda-test-nigahi-{hlr_number}-edges-with_median"
@@ -40,11 +41,11 @@ if __name__ == "__main__":
             os.environ['CHAINAGE_DISTANCE'] = str(random.randint(5, 25))
             os.environ['VEHICLE_WIDTH'] = str(random.randint(5, 15))
             os.environ['INPUT_DTM_PATH'] = "D:/INPUT_HRA/Nigahi/Nigahi_dtm.tif"
-            os.environ['SHAPEFILE_DIRECTORY'] = input_shapefile_folder
+            os.environ['SHAPEFILE_DIRECTORY'] = smartline_input_folder
             os.environ['SMARTLINE_OUTPUT_DIRECTORY'] = smartline_output_path
             os.environ['CENTERLINE_OUTPUT_DIRECTORY'] = centerline_output_path
-            os.environ['CENTERLINE_SHAPEFILE_DIRECTORY'] = smartline_output_path
-            os.environ['EDGES_SHAPEFILE_DIRECTORY'] = smartline_output_path
+            os.environ['CENTERLINE_SHAPEFILE_DIRECTORY'] = centerline_input_folder
+            os.environ['EDGES_SHAPEFILE_DIRECTORY'] = centerline_input_folder
             os.environ['EDGES_NM_OUTPUT_DIRECTORY'] = edges_nm_output_path
             os.environ['EDGES_WM_OUTPUT_DIRECTORY'] = edges_wm_output_path
 
