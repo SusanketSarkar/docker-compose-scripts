@@ -9,8 +9,8 @@ services:
       - "../src:/code/src"  # Mount source code directory.
       - "../requirements.txt:/code/requirements.txt"  # Mount requirements file.
       - "D:/INPUT_HRA/Nigahi/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
-      - "D:/INPUT-1-1/Nigahi/HLR-23/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
-      - "D:/OUTPUT_HRA:/code/files/outputs"  # Mount output folder path.
+      - "D:/INPUT-1-1/Nigahi/HLR-18/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
+      - "D:/OUTPUT_HRA/docker-compose-outputs/smartline:/code/files/outputs"  # Mount output folder path.
       - "./temp/smartline_workflow:/code/files/temp"  # Temporary cache directory.
     command: ["python3", "-m", "src.main"]
     environment:
@@ -27,6 +27,70 @@ services:
       # Algorithm Specific Inputs.
       # Haul Road Analysis Inputs.
       INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/INPUT.shp"
+      CHAINAGE_DISTANCE: "10"
+      VEHICLE_WIDTH: "7"
+
+    stdin_open: true
+    tty: true
+
+  haul-road-test-centerline:
+    build:
+      context: ..
+      dockerfile: Dockerfile 
+    volumes:
+      - "../src:/code/src"  # Mount source code directory.
+      - "../requirements.txt:/code/requirements.txt"  # Mount requirements file.
+      - "D:/INPUT_HRA/Nigahi/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
+      - "D:/INPUT-1-1/Nigahi/HLR-18/centerline:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
+      - "D:/OUTPUT_HRA/docker-compose-outputs/centerline:/code/files/outputs"  # Mount output folder path.
+      - "./temp/centerline_workflow:/code/files/temp"  # Temporary cache directory.
+    command: ["python3", "-m", "src.main"]
+    environment:
+      # Required Inputs.
+      DEBUG: "true"
+      ENVIRONMENT: "platform"
+      WORKFLOW: "hrd_from_center_line"
+
+      # Paths.
+      TEMPORARY_CACHE_DIRECTORY: "/code/files/temp"
+      INPUT_DTM_PATH: "/code/files/inputs/dtm.tif"
+      OUTPUT_FOLDER_PATH: "/code/files/outputs"
+
+      # Algorithm Specific Inputs.
+      # Haul Road Analysis Inputs.
+      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/Centerline.shp"
+      CHAINAGE_DISTANCE: "10"
+      VEHICLE_WIDTH: "7"
+
+    stdin_open: true
+    tty: true
+
+  haul-road-test-edges-only:
+    build:
+      context: ..
+      dockerfile: Dockerfile 
+    volumes:
+      - "../src:/code/src"  # Mount source code directory.
+      - "../requirements.txt:/code/requirements.txt"  # Mount requirements file.
+      - "D:/INPUT_HRA/Nigahi/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
+      - "D:/INPUT-1-1/Nigahi/HLR-18/Edges:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
+      - "D:/OUTPUT_HRA/docker-compose-outputs/onlyedges:/code/files/outputs"  # Mount output folder path.
+      - "./temp/onlyedges_workflow:/code/files/temp"  # Temporary cache directory.
+    command: ["python3", "-m", "src.main"]
+    environment:
+      # Required Inputs.
+      DEBUG: "true"
+      ENVIRONMENT: "platform"
+      WORKFLOW: "hra_from_input_edges"
+
+      # Paths.
+      TEMPORARY_CACHE_DIRECTORY: "/code/files/temp"
+      INPUT_DTM_PATH: "/code/files/inputs/dtm.tif"
+      OUTPUT_FOLDER_PATH: "/code/files/outputs"
+
+      # Algorithm Specific Inputs.
+      # Haul Road Analysis Inputs.
+      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/E18_polylines.shp"
       CHAINAGE_DISTANCE: "10"
       VEHICLE_WIDTH: "7"
 
