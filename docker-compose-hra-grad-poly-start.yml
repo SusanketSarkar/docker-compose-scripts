@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  haul-road-test-smartline:
+    build:
+      context: ..
+      dockerfile: Dockerfile 
+    volumes:
+      - "../src:/code/src"  # Mount source code directory.
+      - "../requirements.txt:/code/requirements.txt"  # Mount requirements file.
+      - "${INPUT_DTM_PATH}:/code/files/inputs/dtm.tif"  # Mount DTM file.
+      - "${SHAPEFILE_DIRECTORY}:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
+      - "${SMARTLINE_OUTPUT_DIRECTORY}:/code/files/outputs"  # Mount output folder path.
+      - "./temp/workflow:/code/files/temp"  # Temporary cache directory.
+    command: ["python3", "-m", "src.main"]
+    environment:
+      # Required Inputs.
+      DEBUG: "true"
+      ENVIRONMENT: "${ENV}"
+      WORKFLOW: "hrd_from_smart_line"
+
+      # Paths.
+      TEMPORARY_CACHE_DIRECTORY: "/code/files/temp"
+      INPUT_DTM_PATH: "/code/files/inputs/dtm.tif"
+      OUTPUT_FOLDER_PATH: "/code/files/outputs"
+
+      # Algorithm Specific Inputs.
+      # Haul Road Analysis Inputs.
+      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/INPUT.shp"
+      CHAINAGE_DISTANCE: "${CHAINAGE_DISTANCE:-10}"
+      VEHICLE_WIDTH: "${VEHICLE_WIDTH:-7}"
+
+    stdin_open: true
+    tty: true
