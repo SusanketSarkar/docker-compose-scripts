@@ -29,7 +29,7 @@ class DockerComposeMapper:
 if __name__ == "__main__":
     mapper = DockerComposeMapper("docker-compose-scripts/docker-compose-hra-grad-poly-start.yml")
     
-    for dataset in ["AMPL", "SMIORE", "Jayant", "Khadia", "Dudhichua"]:
+    for dataset in ["Jayant", "Khadia", "Dudhichua", "AMPL", "SMIORE"]:
         # Get list of HLR folders for current dataset
         
         print("#" * 25)
@@ -54,7 +54,7 @@ if __name__ == "__main__":
         for hlr_number in tqdm.tqdm(hlr_numbers):
             if os.path.exists(f"D:/INPUT-1-1/{dataset}/HLR-{hlr_number}/INPUT.shp"):
                 smartline_input_folder = f"D:/INPUT-1-1/{dataset}/HLR-{hlr_number}/"
-                smartline_output_path = f"D:/OUTPUT_HRA/{dataset}/hrda-test-{dataset}-{hlr_number}-smartline"
+                smartline_output_path = f"D:/OUTPUT_HRA/{dataset}/hrda-test-{dataset}-{hlr_number}-smartline/"
                 centerline_input_folder = os.path.join(smartline_output_path, "results")
                 centerline_output_path = f"D:/OUTPUT_HRA/{dataset}/hrda-test-{dataset}-{hlr_number}-centerline"
                 edges_nm_output_path = f"D:/OUTPUT_HRA/{dataset}/hrda-test-{dataset}-{hlr_number}-edges-no_median"
@@ -72,6 +72,11 @@ if __name__ == "__main__":
                 os.environ['EDGES_NM_OUTPUT_DIRECTORY'] = edges_nm_output_path
                 os.environ['EDGES_WM_OUTPUT_DIRECTORY'] = edges_wm_output_path
 
+                os.makedirs(smartline_output_path, exist_ok=True)
+                # os.makedirs(centerline_output_path, exist_ok=True)
+                # os.makedirs(edges_nm_output_path, exist_ok=True)
+                # os.makedirs(edges_wm_output_path, exist_ok=True) 
+
                 # Log environment variables
                 log_file_path = os.path.join(smartline_output_path, f"logs_hlr_{hlr_number}.txt")
                 env_var_file_path = os.path.join(smartline_output_path, f"env_variables_hlr_{hlr_number}.txt")
@@ -84,10 +89,7 @@ if __name__ == "__main__":
                     env_file.write(f"INPUT_DTM_PATH: {os.environ['INPUT_DTM_PATH']}\n")
                     env_file.write(f"SHAPEFILE_DIRECTORY: {os.environ['SHAPEFILE_DIRECTORY']}\n")
                    
-                os.makedirs(smartline_output_path, exist_ok=True)
-                # os.makedirs(centerline_output_path, exist_ok=True)
-                # os.makedirs(edges_nm_output_path, exist_ok=True)
-                # os.makedirs(edges_wm_output_path, exist_ok=True)  
+                 
 
                 mapper.run_compose("docker-compose-scripts/docker-compose-hra-grad-poly-start.yml", log_file_path)
 
