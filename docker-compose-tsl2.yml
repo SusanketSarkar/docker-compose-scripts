@@ -8,9 +8,9 @@ services:
     volumes:
       - "../src:/code/src"  # Mount source code directory.
       - "../requirements.txt:/code/requirements.txt"  # Mount requirements file.
-      - "D:/Mines/TSL/JodaEast/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
-      - "D:/Mines/TSL/JodaEast/smartlines/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
-      - "${OUTPUT_DIR:-D:/OUTPUT_HRA/docker-compose-outputs/tsl/hra/joda-east/jodae-run2-chunk300-smooth200-meddist50-area5-polyintbased}:/code/files/outputs"  # Mount output folder path. Directory will be created if it doesn't exist.
+      - "D:/Mines/CIL/Dipka OCP (SECL)/DPK_Full_Lease_Area_Survey/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
+      - "D:/Mines/CIL/Dipka OCP (SECL)/DPK_Full_Lease_Area_Survey/smartlines/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
+      - "${OUTPUT_DIR:-D:/Susanket/Haul_Road_Detection/docker-compose-outputs/cil/hra/dipka/dipka-run3-chunk200-smooth150-meddist10-area15-polyintbased}:/code/files/outputs"  # Mount output folder path. Directory will be created if it doesn't exist.
       - "./temp/smartline_workflow:/code/files/temp"  # Temporary cache directory.
     command: ["python3", "-m", "src.main"]
     environment:
@@ -26,7 +26,7 @@ services:
 
       # Algorithm Specific Inputs.
       # Haul Road Analysis Inputs.
-      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline2.shp"
+      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline3.shp"
       INPUT_MEDIAN_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/median.shp"
       CHAINAGE_DISTANCE: "10"
       VEHICLE_WIDTH: "7"

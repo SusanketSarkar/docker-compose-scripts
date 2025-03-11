@@ -8,9 +8,9 @@ services:
     volumes:
       - "../src:/code/src"  # Mount source code directory.
       - "../requirements.txt:/code/requirements.txt"  # Mount requirements file.
-      - "D:/Mines/TSL/Katamati/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
-      - "D:/Mines/TSL/Katamati/smartlines/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
-      - "${OUTPUT_DIR:-D:/OUTPUT_HRA/docker-compose-outputs/tsl/hra/katamati/katamati-run2-chunk300-smooth250-meddist50-area5-roaddist100}:/code/files/outputs"  # Mount output folder path. Directory will be created if it doesn't exist.
+      - "D:/Mines/CIL/Gevra OCP (SECL)/Gevra Full Lease Area/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
+      - "D:/Mines/CIL/Gevra OCP (SECL)/Gevra Full Lease Area/smartlines/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
+      - "${OUTPUT_DIR:-D:/Susanket/Haul_Road_Detection/docker-compose-outputs/cil/hra/Dudhichua/dudhi-run1-chunk100-smooth150-meddist10-area15-polyintbased}:/code/files/outputs"  # Mount output folder path. Directory will be created if it doesn't exist.
       - "./temp/smartline_workflow:/code/files/temp"  # Temporary cache directory.
     command: ["python3", "-m", "src.main"]
     environment:
@@ -26,7 +26,7 @@ services:
 
       # Algorithm Specific Inputs.
       # Haul Road Analysis Inputs.
-      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline2.shp"
+      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline1.shp"
       INPUT_MEDIAN_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/median.shp"
       CHAINAGE_DISTANCE: "10"
       VEHICLE_WIDTH: "7"
@@ -45,8 +45,8 @@ services:
     volumes:
       - "../src:/code/src"
       - "../requirements.txt:/code/requirements.txt" # Mount requirements file.
-      - "D:/Mines/TSL/West Bokaro/Query SEB/dtm.tif:/code/files/inputs/dtm.tif"
-      - "D:/OUTPUT_HRA/docker-compose-outputs/tsl/bctd/West Bokaro - QSEB:/code/files/outputs"
+      - "D:/Mines/CIL/Dipka OCP (SECL)/DPK_Full_Lease_Area_Survey/dtm.tif:/code/files/inputs/dtm.tif"
+      - "${OUTPUT_DIR:-D:/Susanket/Haul_Road_Detection/docker-compose-outputs/cil/hra/Dipka/dipka-run1-filter2-slope30-sens0.6}:/code/files/outputs"
       - "./temp/workflow:/code/files/temp"
     command: [ "python3", "-m", "src.main" ]
     environment:
