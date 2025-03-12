@@ -1,0 +1,25 @@
+services:
+  bench_crest_toe_detection:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    volumes:
+      - "../src:/code/src"
+      - "../requirements.txt:/code/requirements.txt" # Mount requirements file.
+      - "${INPUT_DTM_PATH}:/code/files/inputs/dtm.tif"
+      - "${OUTPUT_DIR}:/code/files/outputs"
+      - "./temp/workflow:/code/files/temp"
+    command: [ "python3", "-m", "src.main" ]
+    environment:
+      # Required Inputs.
+      - DEBUG=true
+      - ENVIRONMENT=platform
+      - WORKFLOW=bench_crest_toe_detection
+
+      # Paths.
+      - TEMPORARY_CACHE_DIRECTORY=/code/files/temp
+      - INPUT_DTM_PATH=/code/files/inputs/dtm.tif
+      - OUTPUT_FOLDER_PATH=/code/files/outputs
+
+    stdin_open: true
+    tty: true

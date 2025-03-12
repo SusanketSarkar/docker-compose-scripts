@@ -8,9 +8,9 @@ services:
     volumes:
       - "../src:/code/src"  # Mount source code directory.
       - "../requirements.txt:/code/requirements.txt"  # Mount requirements file.
-      - "D:/Mines/TSL/JodaEast/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
-      - "D:/Mines/TSL/JodaEast/smartlines/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
-      - "${OUTPUT_DIR:-D:/OUTPUT_HRA/docker-compose-outputs/tsl/hra/joda-east/jodae-run2-chunk300-smooth200-meddist50-area5-polyintbased}:/code/files/outputs"  # Mount output folder path. Directory will be created if it doesn't exist.
+      - "D:/Mines/TSL/Jorda/dtm.tif:/code/files/inputs/dtm.tif"  # Mount DTM file.
+      - "D:/Mines/TSL/Jorda/smartlines/:/code/files/inputs/shapefiles"  # Comment if no input shapefiles are needed.
+      - "${OUTPUT_DIR:-D:/OUTPUT_HRA/docker-compose-outputs/tsl/hra/jdw/2}:/code/files/outputs"  # Mount output folder path. Directory will be created if it doesn't exist.
       - "./temp/smartline_workflow:/code/files/temp"  # Temporary cache directory.
     command: ["python3", "-m", "src.main"]
     environment:
