@@ -27,6 +27,7 @@ services:
       # Algorithm Specific Inputs.
       # Haul Road Analysis Inputs.
       INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline1.shp"
+      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline1.shp"
       INPUT_MEDIAN_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/median.shp"
       CHAINAGE_DISTANCE: "10"
       VEHICLE_WIDTH: "7"
@@ -45,8 +46,8 @@ services:
     volumes:
       - "../src:/code/src"
       - "../requirements.txt:/code/requirements.txt" # Mount requirements file.
-      - "D:/Mines/TSL/West Bokaro/Query SEB/dtm.tif:/code/files/inputs/dtm.tif"
-      - "D:/OUTPUT_HRA/docker-compose-outputs/tsl/bctd/West Bokaro - QSEB:/code/files/outputs"
+      - "D:/Mines/CIL/Dipka OCP (SECL)/DPK_Full_Lease_Area_Survey/dtm.tif:/code/files/inputs/dtm.tif"
+      - "${OUTPUT_DIR:-D:/Susanket/Haul_Road_Detection/docker-compose-outputs/cil/hra/Dipka/dipka-run1-filter2-slope30-sens0.6}:/code/files/outputs"
       - "./temp/workflow:/code/files/temp"
     command: [ "python3", "-m", "src.main" ]
     environment:

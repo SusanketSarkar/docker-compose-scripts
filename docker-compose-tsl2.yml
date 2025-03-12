@@ -26,7 +26,7 @@ services:
 
       # Algorithm Specific Inputs.
       # Haul Road Analysis Inputs.
-      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline2.shp"
+      INPUT_LINESTRING_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/smartline3.shp"
       INPUT_MEDIAN_SHAPEFILE_PATH: "/code/files/inputs/shapefiles/median.shp"
       CHAINAGE_DISTANCE: "10"
       VEHICLE_WIDTH: "7"
