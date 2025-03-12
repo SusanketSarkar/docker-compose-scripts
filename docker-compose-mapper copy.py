@@ -21,10 +21,9 @@ class DockerComposeMapper:
         with open(output_path, 'w') as file:
             yaml.dump(self.compose_data, file, default_flow_style=False)
 
-    def run_compose(self, compose_file_path: str, log_file_path: str):
+    def run_compose(self, compose_file_path: str = "docker-compose-scripts/docker-compose-bctd.yml"):
         """Runs the docker-compose file."""
-        with open(log_file_path, "w") as log_file:
-            subprocess.run(["docker-compose", "-f", compose_file_path, "up", "--build"], stdout=log_file)
+        subprocess.run(["docker-compose", "-f", compose_file_path, "up", "--build"])
 
 if __name__ == "__main__":
     mapper = DockerComposeMapper("docker-compose-scripts/docker-compose-bctd.yml")
@@ -35,34 +34,16 @@ if __name__ == "__main__":
         print("#" * 25)
         print(f"### Started Processing for {dataset} ###")
         print("#" * 25)
-        dataset_path = 
-                
-        # Process each HLR folder
-        for hlr_number in tqdm.tqdm(hlr_numbers):
-            if os.path.exists(f"D:/INPUT-1-1/{dataset}/HLR-{hlr_number}/INPUT.shp"):
-                output_path = f"D:/OUTPUT_HRA/{dataset}/hrda-test-{dataset}-{hlr_number}"
+        dtm_path = "" #Enter path to dtm
 
-                os.environ['ENV'] = "platform"
+        for param1 in [0.5, 0.6, 0.7, 0.8, 1]:
+            for param2 in [20, 30, 40]:
+                for param3 in [1, 2, 3]:
+                    output_path = f"D:/Jay/bctd_docker/{str(param1)}_{str(param2)}_{str(param2)}"
+                    os.makedirs(output_path, exist_ok=True)
+                    os.environ['ENV'] = "platform"
+                    os.environ['param1'] = str(param1)
+                    os.environ['param2'] = str(param2)
+                    os.environ['param3'] = str(param3)
 
-                os.makedirs(smartline_output_path, exist_ok=True)
-                # os.makedirs(centerline_output_path, exist_ok=True)
-                # os.makedirs(edges_nm_output_path, exist_ok=True)
-                # os.makedirs(edges_wm_output_path, exist_ok=True) 
-
-                # Log environment variables
-                log_file_path = os.path.join(smartline_output_path, f"logs_hlr_{hlr_number}.txt")
-                env_var_file_path = os.path.join(smartline_output_path, f"env_variables_hlr_{hlr_number}.txt")
-                    
-                with open(env_var_file_path, "w") as env_file:
-                    env_file.write("Environment Variables:\n")
-                    env_file.write(f"ENV: {os.environ['ENV']}\n")
-                    env_file.write(f"CHAINAGE_DISTANCE: {os.environ['CHAINAGE_DISTANCE']}\n") 
-                    env_file.write(f"VEHICLE_WIDTH: {os.environ['VEHICLE_WIDTH']}\n")
-                    env_file.write(f"INPUT_DTM_PATH: {os.environ['INPUT_DTM_PATH']}\n")
-                    env_file.write(f"SHAPEFILE_DIRECTORY: {os.environ['SHAPEFILE_DIRECTORY']}\n")
-                   
-                 
-
-                mapper.run_compose("docker-compose-scripts/docker-compose-hra-grad-poly-start.yml", log_file_path)
-
-       
+                    mapper.run_compose()

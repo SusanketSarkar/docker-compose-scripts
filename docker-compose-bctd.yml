@@ -12,14 +12,17 @@ services:
     command: [ "python3", "-m", "src.main" ]
     environment:
       # Required Inputs.
-      - DEBUG=true
-      - ENVIRONMENT=platform
-      - WORKFLOW=bench_crest_toe_detection
+      DEBUG: "true"
+      ENVIRONMENT: "${ENV}"
+      WORKFLOW: "bench_crest_toe_detection"
+      PARAN1: "$PARAN1"
+      PARAN2: "$PARAN1"
+      PARAN3: "$PARAN1"
 
       # Paths.
-      - TEMPORARY_CACHE_DIRECTORY=/code/files/temp
-      - INPUT_DTM_PATH=/code/files/inputs/dtm.tif
-      - OUTPUT_FOLDER_PATH=/code/files/outputs
+      TEMPORARY_CACHE_DIRECTORY: "/code/files/temp"
+      INPUT_DTM_PATH: "/code/files/inputs/dtm.tif"
+      OUTPUT_FOLDER_PATH: "/code/files/outputs"
 
     stdin_open: true
     tty: true
