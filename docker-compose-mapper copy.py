@@ -34,7 +34,7 @@ if __name__ == "__main__":
         print("#" * 25)
         print(f"### Started Processing for {dataset} ###")
         print("#" * 25)
-        dtm_path = "" #Enter path to dtm
+        dtm_path = "" # Enter path to dtm
 
         for param1 in [0.5, 0.6, 0.7, 0.8, 1]:
             for param2 in [20, 30, 40]:
